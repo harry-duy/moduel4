@@ -59,13 +59,6 @@
             background-color: #ffebee;
             border-radius: 4px;
         }
-        .success {
-            color: #2e7d32;
-            margin-bottom: 1rem;
-            padding: 0.5rem;
-            background-color: #e8f5e8;
-            border-radius: 4px;
-        }
         .links {
             text-align: center;
             margin-top: 1rem;

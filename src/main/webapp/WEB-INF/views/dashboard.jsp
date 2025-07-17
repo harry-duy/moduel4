@@ -64,6 +64,7 @@
         .nav-links {
             display: flex;
             gap: 1rem;
+            align-items: center;
         }
         .nav-links a {
             color: white;
@@ -74,23 +75,35 @@
         .nav-links a:hover {
             background-color: rgba(255,255,255,0.1);
         }
+        .error {
+            color: #dc3545;
+            background-color: #f8d7da;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        .success {
+            color: #155724;
+            background-color: #d4edda;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
 <div class="header">
     <h1>Movie Booking System</h1>
-    <div style="display: flex; align-items: center; gap: 1rem;">
-        <div class="nav-links">
-            <a href="/">Home</a>
-            <a href="/movies">Movies</a>
-            <sec:authorize access="hasRole('ADMIN')">
-                <a href="/admin">Admin</a>
-            </sec:authorize>
-        </div>
-        <div>
-            Welcome, <sec:authentication property="name"/>!
-        </div>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/movies">Movies</a>
+        <a href="/booking/my-bookings">My Bookings</a>
+        <sec:authorize access="hasRole('ADMIN')">
+            <a href="/admin/dashboard">Admin</a>
+        </sec:authorize>
+        <span>Welcome, <sec:authentication property="name"/>!</span>
         <form action="/logout" method="post" style="margin: 0;">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <button type="submit" class="logout-btn">Logout</button>
         </form>
     </div>
@@ -100,10 +113,10 @@
     <div class="welcome">
         <h2>Welcome to your Dashboard!</h2>
         <c:if test="${not empty message}">
-            <div style="color: #28a745; margin-bottom: 1rem;">${message}</div>
+            <div class="success">${message}</div>
         </c:if>
         <c:if test="${not empty error}">
-            <div style="color: #dc3545; margin-bottom: 1rem;">${error}</div>
+            <div class="error">${error}</div>
         </c:if>
         <p>You are now logged in and can access all features.</p>
     </div>
@@ -121,6 +134,7 @@
                         <p><strong>Rating:</strong> ${movie.rating}/10</p>
                         <p><strong>Release Date:</strong> ${movie.releaseDate}</p>
                         <p>${movie.description}</p>
+                        <a href="/movie/${movie.id}" style="color: #007bff; text-decoration: none;">View Details & Book</a>
                     </div>
                 </c:forEach>
             </c:when>

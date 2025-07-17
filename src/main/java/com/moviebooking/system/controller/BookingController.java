@@ -7,16 +7,16 @@ import com.moviebooking.system.service.BookingService;
 import com.moviebooking.system.service.ShowtimeService;
 import com.moviebooking.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/bookings")
+@RequestMapping("/booking")
 public class BookingController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class BookingController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/book/{showtimeId}")
+    @GetMapping("/create/{showtimeId}")
     public String bookingForm(@PathVariable Long showtimeId, Model model) {
         Optional<Showtime> showtime = showtimeService.getShowtimeById(showtimeId);
         if (showtime.isPresent()) {
@@ -38,26 +38,25 @@ public class BookingController {
         return "redirect:/movies";
     }
 
-    @PostMapping("/book/{showtimeId}")
-    public String processBooking(@PathVariable Long showtimeId,
+    @PostMapping("/create")
+    public String processBooking(@RequestParam Long showtimeId,
                                  @RequestParam Integer numberOfTickets,
-                                 HttpSession session,
                                  Model model) {
-        String username = (String) session.getAttribute("username");
-        if (username == null) {
-            return "redirect:/login";
-        }
-
         try {
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
             Optional<User> user = userService.getUserByUsername(username);
             Optional<Showtime> showtime = showtimeService.getShowtimeById(showtimeId);
 
             if (user.isPresent() && showtime.isPresent()) {
                 Booking booking = bookingService.createBooking(user.get(), showtime.get(), numberOfTickets);
-                return "redirect:/bookings/confirmation/" + booking.getId();
+                return "redirect:/booking/confirmation/" + booking.getId();
             }
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
+            Optional<Showtime> showtime = showtimeService.getShowtimeById(showtimeId);
+            if (showtime.isPresent()) {
+                model.addAttribute("showtime", showtime.get());
+            }
             return "booking-form";
         }
 
@@ -75,12 +74,8 @@ public class BookingController {
     }
 
     @GetMapping("/my-bookings")
-    public String myBookings(HttpSession session, Model model) {
-        String username = (String) session.getAttribute("username");
-        if (username == null) {
-            return "redirect:/login";
-        }
-
+    public String myBookings(Model model) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User> user = userService.getUserByUsername(username);
         if (user.isPresent()) {
             List<Booking> bookings = bookingService.getBookingsByUser(user.get().getId());
@@ -93,6 +88,6 @@ public class BookingController {
     @PostMapping("/cancel/{bookingId}")
     public String cancelBooking(@PathVariable Long bookingId) {
         bookingService.cancelBooking(bookingId);
-        return "redirect:/bookings/my-bookings";
+        return "redirect:/booking/my-bookings";
     }
 }

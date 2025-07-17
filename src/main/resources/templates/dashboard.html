@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Dashboard - Movie Booking</title>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+        .header { background-color: #007bff; color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .nav-links { display: flex; gap: 15px; align-items: center; }
+        .nav-links a { color: white; text-decoration: none; padding: 8px 16px; border-radius: 4px; }
+        .nav-links a:hover { background-color: rgba(255,255,255,0.1); }
+        .logout-btn { background-color: #dc3545; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
+        .welcome { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .movies { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .movie { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .movie h3 { color: #007bff; margin-top: 0; }
+        .success { color: #155724; background-color: #d4edda; padding: 10px; border-radius: 4px; margin: 10px 0; }
+        .error { color: #721c24; background-color: #f8d7da; padding: 10px; border-radius: 4px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>Movie Booking System</h1>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/movies">Movies</a>
+        <a href="/booking/my-bookings">My Bookings</a>
+        <span sec:authorize="hasRole('ADMIN')">
+                <a href="/admin/dashboard">Admin</a>
+            </span>
+        <span>Welcome, <span sec:authentication="name">User</span>!</span>
+        <form th:action="@{/logout}" method="post" style="margin: 0;">
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <div class="welcome">
+        <h2>Welcome to your Dashboard!</h2>
+        <div th:if="${message}" class="success" th:text="${message}"></div>
+        <div th:if="${error}" class="error" th:text="${error}"></div>
+        <p>You are now logged in and can access all features.</p>
+    </div>
+
+    <h2>Available Movies</h2>
+    <div class="movies">
+        <div th:each="movie : ${movies}" class="movie">
+            <h3 th:text="${movie.title}">Movie Title</h3>
+            <p><strong>Director:</strong> <span th:text="${movie.director}">Director</span></p>
+            <p><strong>Genre:</strong> <span th:text="${movie.genre}">Genre</span></p>
+            <p><strong>Duration:</strong> <span th:text="${movie.durationMinutes}">Duration</span> minutes</p>
+            <p><strong>Rating:</strong> <span th:text="${movie.rating}">Rating</span>/10</p>
+            <p th:text="${movie.description}">Description</p>
+            <a th:href="@{/movie/{id}(id=${movie.id})}" style="color: #007bff;">View Details & Book</a>
+        </div>
+    </div>
+
+    <div th:if="${#lists.isEmpty(movies)}">
+        <p>No movies available at the moment.</p>
+    </div>
+</div>
+</body>
+</html>

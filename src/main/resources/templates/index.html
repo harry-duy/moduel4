@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Movie Booking System</title>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; }
+        .header { background-color: #007bff; color: white; padding: 20px; text-align: center; margin-bottom: 20px; }
+        .nav { text-align: center; margin: 20px 0; }
+        .nav a { margin: 0 10px; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; }
+        .nav a:hover { background-color: #0056b3; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .movies { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .movie { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .movie h3 { color: #007bff; margin-top: 0; }
+        .error { color: red; background-color: #ffebee; padding: 10px; border-radius: 4px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>🎬 Movie Booking System</h1>
+</div>
+
+<div class="nav">
+    <a href="/">Home</a>
+    <a href="/movies">Movies</a>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+</div>
+
+<div class="container">
+    <div th:if="${error}" class="error" th:text="${error}"></div>
+
+    <h2>Available Movies</h2>
+    <div class="movies">
+        <div th:each="movie : ${movies}" class="movie">
+            <h3 th:text="${movie.title}">Movie Title</h3>
+            <p><strong>Director:</strong> <span th:text="${movie.director}">Director</span></p>
+            <p><strong>Genre:</strong> <span th:text="${movie.genre}">Genre</span></p>
+            <p><strong>Duration:</strong> <span th:text="${movie.durationMinutes}">Duration</span> minutes</p>
+            <p><strong>Rating:</strong> <span th:text="${movie.rating}">Rating</span>/10</p>
+            <p th:text="${movie.description}">Description</p>
+            <a th:href="@{/movie/{id}(id=${movie.id})}" style="color: #007bff;">View Details</a>
+        </div>
+    </div>
+
+    <div th:if="${#lists.isEmpty(movies)}">
+        <p>No movies available at the moment.</p>
+    </div>
+</div>
+</body>
+</html>

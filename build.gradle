@@ -21,15 +21,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-    // JSP dependencies
-    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
-    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
-    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+    // Thymeleaf thay vì JSP
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
-    // Spring Security JSP taglib
-    implementation 'org.springframework.security:spring-security-taglibs'
-
-    // MySQL connector - SỬA LẠI VERSION
+    // MySQL connector
     implementation 'com.mysql:mysql-connector-j:8.1.0'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

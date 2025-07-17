@@ -5,34 +5,137 @@
 <head>
     <meta charset="UTF-8">
     <title>Movies - Movie Booking</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        .nav-links a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .search-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .search-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .search-form input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 300px;
+        }
+        .search-form button {
+            padding: 0.5rem 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .search-form button:hover {
+            background-color: #0056b3;
+        }
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .movie-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .movie-card h3 {
+            color: #007bff;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        .movie-info {
+            flex-grow: 1;
+            margin-bottom: 1rem;
+        }
+        .movie-actions {
+            margin-top: auto;
+        }
+        .movie-actions a {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 4px;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .movie-actions a:hover {
+            background-color: #0056b3;
+        }
+        .alert {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        .alert-info a {
+            color: #0c5460;
+        }
+    </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="/">
-            <i class="fas fa-film"></i> Movie Booking
-        </a>
-        <div class="navbar-nav ms-auto">
-            <a class="nav-link" href="/">Home</a>
-            <a class="nav-link" href="/movies">Movies</a>
-            <a class="nav-link" href="/login">Login</a>
-        </div>
+<div class="header">
+    <h1>🎬 Movie Booking</h1>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/movies">Movies</a>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
     </div>
-</nav>
+</div>
 
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2><i class="fas fa-film"></i> Movies</h2>
-
-        <!-- Search Form -->
-        <form action="/movies" method="get" class="d-flex">
-            <input class="form-control me-2" type="search" name="search"
-                   value="${param.search}" placeholder="Search movies..." aria-label="Search">
-            <button class="btn btn-outline-primary" type="submit">
-                <i class="fas fa-search"></i>
-            </button>
+<div class="container">
+    <div class="search-section">
+        <h2>Movies</h2>
+        <form class="search-form" action="/movies" method="get">
+            <input type="search" name="search" value="${param.search}" placeholder="Search movies..." />
+            <button type="submit">Search</button>
         </form>
     </div>
 
@@ -61,57 +164,34 @@
 
     <!-- Movies Grid -->
     <c:if test="${not empty movies}">
-        <div class="row">
+        <div class="movies-grid">
             <c:forEach items="${movies}" var="movie">
-                <div class="col-md-4 col-lg-3 mb-4">
-                    <div class="card movie-card h-100">
-                        <img src="${movie.posterUrl}"
-                             alt="${movie.title}"
-                             class="card-img-top"
-                             style="height: 400px; object-fit: cover;"
-                             onerror="this.src='https://via.placeholder.com/300x450/1f1f1f/ffffff?text=No+Image'">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">${movie.title}</h5>
-                            <p class="card-text">
-                                <c:choose>
-                                    <c:when test="${movie.description.length() > 100}">
-                                        ${movie.description.substring(0, 100)}...
-                                    </c:when>
-                                    <c:otherwise>
-                                        ${movie.description}
-                                    </c:otherwise>
-                                </c:choose>
-                            </p>
-
-                            <div class="mt-auto">
-                                <div class="mb-2">
-                                    <small class="text-muted">
-                                        <i class="fas fa-star text-warning"></i>
-                                            ${movie.rating}
-                                    </small>
-                                    <br>
-                                    <small class="text-muted">
-                                        <i class="fas fa-clock"></i>
-                                            ${movie.durationMinutes} min
-                                    </small>
-                                    <br>
-                                    <small class="text-muted">
-                                        <i class="fas fa-tags"></i>
-                                            ${movie.genre}
-                                    </small>
-                                </div>
-                                <a href="/movie/${movie.id}" class="btn btn-primary w-100">
-                                    <i class="fas fa-info-circle"></i> View Details & Book
-                                </a>
-                            </div>
-                        </div>
+                <div class="movie-card">
+                    <h3>${movie.title}</h3>
+                    <div class="movie-info">
+                        <p><strong>Director:</strong> ${movie.director}</p>
+                        <p><strong>Genre:</strong> ${movie.genre}</p>
+                        <p><strong>Duration:</strong> ${movie.durationMinutes} minutes</p>
+                        <p><strong>Rating:</strong> ${movie.rating}/10</p>
+                        <p><strong>Release Date:</strong> ${movie.releaseDate}</p>
+                        <p>
+                            <c:choose>
+                                <c:when test="${movie.description.length() > 100}">
+                                    ${movie.description.substring(0, 100)}...
+                                </c:when>
+                                <c:otherwise>
+                                    ${movie.description}
+                                </c:otherwise>
+                            </c:choose>
+                        </p>
+                    </div>
+                    <div class="movie-actions">
+                        <a href="/movie/${movie.id}">View Details & Book</a>
                     </div>
                 </div>
             </c:forEach>
         </div>
     </c:if>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

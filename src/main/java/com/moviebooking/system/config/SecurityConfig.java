@@ -32,17 +32,18 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authz -> authz
-                        // Cho phép tất cả truy cập các trang public
+                        // Cho phép truy cập tất cả trang public
                         .requestMatchers("/", "/home", "/movies", "/movies/**", "/login", "/register", "/auth/**").permitAll()
-                        // Cho phép tất cả static resources
+                        // Cho phép static resources
                         .requestMatchers("/css/**", "/js/**", "/images/**", "/static/**").permitAll()
+                        // Cho phép test endpoints
+                        .requestMatchers("/test-json", "/jsp-test", "/health").permitAll()
                         // Cho phép error pages
                         .requestMatchers("/error/**").permitAll()
-                        // Admin pages cần role ADMIN
+                        // Admin pages
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        // Dashboard cần authentication
+                        // Authenticated pages
                         .requestMatchers("/dashboard", "/booking/**", "/profile/**").authenticated()
-                        // Tất cả request khác cần authentication
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -62,10 +63,6 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session
-                        .maximumSessions(1)
-                        .maxSessionsPreventsLogin(false)
-                )
                 .authenticationProvider(authenticationProvider());
 
         return http.build();

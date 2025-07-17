@@ -23,19 +23,16 @@ public class UserController {
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user, Model model) {
         try {
-            // Kiểm tra username đã tồn tại
             if (userService.existsByUsername(user.getUsername())) {
                 model.addAttribute("error", "Username already exists!");
                 return "register";
             }
 
-            // Kiểm tra email đã tồn tại
             if (userService.existsByEmail(user.getEmail())) {
                 model.addAttribute("error", "Email already exists!");
                 return "register";
             }
 
-            // Lưu user (password sẽ được hash trong UserService)
             userService.saveUser(user);
             return "redirect:/login?registered=true";
         } catch (Exception e) {
@@ -44,12 +41,8 @@ public class UserController {
         }
     }
 
-    // Xóa method login POST vì Spring Security sẽ handle
-    // @PostMapping("/login") - KHÔNG CẦN NỮA
-
     @GetMapping("/logout")
     public String logout() {
-        // Spring Security sẽ handle logout
         return "redirect:/logout";
     }
 }

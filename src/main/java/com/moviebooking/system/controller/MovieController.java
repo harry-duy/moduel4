@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/movies")
+@RequestMapping("/movie")
 public class MovieController {
 
     @Autowired
@@ -39,6 +39,6 @@ public class MovieController {
         List<Movie> movies = movieService.getMoviesByGenre(genre);
         model.addAttribute("movies", movies);
         model.addAttribute("genre", genre);
-        return "movies-by-genre";
+        return "movies";
     }
 }
