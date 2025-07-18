@@ -1,3 +1,4 @@
+
 package com.moviebooking.system.config;
 
 import org.springframework.context.annotation.Bean;

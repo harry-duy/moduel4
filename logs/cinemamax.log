@@ -1,0 +1,694 @@
+2025-07-18 09:10:41 [restartedMain] INFO  c.m.s.MovieBookingSystemApplication - Starting MovieBookingSystemApplication using Java 23.0.1 with PID 17240 (C:\Users\duyng\OneDrive\Tài liệu\moduel4\Movie Booking System\build\classes\java\main started by duyng in C:\Users\duyng\OneDrive\Tài liệu\moduel4\Movie Booking System)
+2025-07-18 09:10:41 [restartedMain] DEBUG c.m.s.MovieBookingSystemApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-07-18 09:10:41 [restartedMain] INFO  c.m.s.MovieBookingSystemApplication - The following 1 profile is active: "dev"
+2025-07-18 09:10:41 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-07-18 09:10:41 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-07-18 09:10:41 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.moviebooking.system.MovieBookingSystemApplication]
+2025-07-18 09:10:42 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.moviebooking.system.MovieBookingSystemApplication]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:178)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:416)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:289)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:349)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:118)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:775)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:597)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331)
+	at com.moviebooking.system.MovieBookingSystemApplication.main(MovieBookingSystemApplication.java:17)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'globalExceptionHandler' for bean class [com.moviebooking.system.exception.GlobalExceptionHandler] conflicts with existing, non-compatible bean definition of same name and class [com.moviebooking.system.config.GlobalExceptionHandler]
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.checkCandidate(ClassPathBeanDefinitionScanner.java:361)
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.doScan(ClassPathBeanDefinitionScanner.java:288)
+	at org.springframework.context.annotation.ComponentScanAnnotationParser.parse(ComponentScanAnnotationParser.java:128)
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:296)
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:245)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:196)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:164)
+	... 16 common frames omitted
+2025-07-18 09:17:41 [restartedMain] INFO  c.m.s.MovieBookingSystemApplication - Starting MovieBookingSystemApplication using Java 23.0.1 with PID 15904 (C:\Users\duyng\OneDrive\Tài liệu\moduel4\Movie Booking System\build\classes\java\main started by duyng in C:\Users\duyng\OneDrive\Tài liệu\moduel4\Movie Booking System)
+2025-07-18 09:17:41 [restartedMain] DEBUG c.m.s.MovieBookingSystemApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-07-18 09:17:41 [restartedMain] INFO  c.m.s.MovieBookingSystemApplication - The following 1 profile is active: "dev"
+2025-07-18 09:17:41 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-07-18 09:17:41 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-07-18 09:17:43 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-18 09:17:43 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 147 ms. Found 5 JPA repository interfaces.
+2025-07-18 09:17:45 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-07-18 09:17:45 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-18 09:17:45 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-18 09:17:45 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-18 09:17:45 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4099 ms
+2025-07-18 09:17:45 [restartedMain] DEBUG o.s.w.s.r.ResourceUrlEncodingFilter - Filter 'resourceUrlEncodingFilter' configured for use
+2025-07-18 09:17:45 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-18 09:17:46 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-07-18 09:17:46 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-18 09:17:46 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-18 09:17:46 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-07-18 09:17:47 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4eb4174e
+2025-07-18 09:17:47 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-07-18 09:17:47 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-18 09:17:49 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-18 09:17:49 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table bookings 
+       add column bookingReference varchar(255) not null
+2025-07-18 09:17:49 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table bookings 
+       add column bookingTime datetime(6) not null
+2025-07-18 09:17:49 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table bookings 
+       add column numberOfTickets integer not null
+2025-07-18 09:17:49 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table bookings 
+       add column totalPrice float(53) not null
+2025-07-18 09:17:49 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table movies 
+       add column ageRating varchar(255)
+2025-07-18 09:17:49 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table movies 
+       add column backdropUrl varchar(255)
+2025-07-18 09:17:49 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table movies 
+       add column cast varchar(255)
+2025-07-18 09:17:49 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table movies 
+       add column country varchar(255)
+2025-07-18 09:17:49 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table movies 
+       add column durationMinutes integer
+2025-07-18 09:17:49 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table movies 
+       add column isActive bit
+2025-07-18 09:17:49 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table movies 
+       add column isFeatured bit
+2025-07-18 09:17:49 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table movies 
+       add column language varchar(255)
+2025-07-18 09:17:49 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table movies 
+       add column posterUrl varchar(255)
+2025-07-18 09:17:49 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table movies 
+       add column releaseDate date
+2025-07-18 09:17:50 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table movies 
+       add column trailerUrl varchar(255)
+2025-07-18 09:17:50 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table showtimes 
+       add column availableSeats integer
+2025-07-18 09:17:50 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table showtimes 
+       add column showTime datetime(6) not null
+2025-07-18 09:17:50 [restartedMain] WARN  o.h.t.s.i.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table showtimes 
+       add column showTime datetime(6) not null" via JDBC [Data truncation: Incorrect datetime value: '0000-00-00 00:00:00' for column 'showTime' at row 1]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table showtimes 
+       add column showTime datetime(6) not null" via JDBC [Data truncation: Incorrect datetime value: '0000-00-00 00:00:00' for column 'showTime' at row 1]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:574)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:514)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.migrateTable(AbstractSchemaMigrator.java:333)
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:84)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:286)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1430)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:295)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1771)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:601)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1173)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:936)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331)
+	at com.moviebooking.system.MovieBookingSystemApplication.main(MovieBookingSystemApplication.java:17)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: com.mysql.cj.jdbc.exceptions.MysqlDataTruncation: Data truncation: Incorrect datetime value: '0000-00-00 00:00:00' for column 'showTime' at row 1
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:104)
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:763)
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 41 common frames omitted
+2025-07-18 09:17:50 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table showtimes 
+       add column ticketPrice float(53) not null
+2025-07-18 09:17:50 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table theaters 
+       add column phoneNumber varchar(255)
+2025-07-18 09:17:50 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table theaters 
+       add column totalSeats integer
+2025-07-18 09:17:50 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table users 
+       add column fullName varchar(255)
+2025-07-18 09:17:50 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table users 
+       add column isEnabled bit
+2025-07-18 09:17:50 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table users 
+       add column phoneNumber varchar(255)
+2025-07-18 09:17:50 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table bookings 
+       drop index UK_elhhjhpdxx45ws8jdgk7jvoxv
+2025-07-18 09:17:50 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table bookings 
+       add constraint UK_elhhjhpdxx45ws8jdgk7jvoxv unique (bookingReference)
+2025-07-18 09:17:50 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-18 09:17:51 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-07-18 09:17:52 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataLoader': Unsatisfied dependency expressed through field 'userService': Error creating bean with name 'userService': Unsatisfied dependency expressed through field 'passwordEncoder': No qualifying bean of type 'org.springframework.security.crypto.password.PasswordEncoder' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2025-07-18 09:17:52 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-18 09:17:53 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-07-18 09:17:53 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-07-18 09:17:53 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2025-07-18 09:17:53 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-07-18 09:17:53 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field passwordEncoder in com.moviebooking.system.service.UserService required a bean of type 'org.springframework.security.crypto.password.PasswordEncoder' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'org.springframework.security.crypto.password.PasswordEncoder' in your configuration.
+
+2025-07-18 09:29:40 [restartedMain] INFO  c.m.s.MovieBookingSystemApplication - Starting MovieBookingSystemApplication using Java 23.0.1 with PID 24140 (C:\Users\duyng\OneDrive\Tài liệu\moduel4\Movie Booking System\build\classes\java\main started by duyng in C:\Users\duyng\OneDrive\Tài liệu\moduel4\Movie Booking System)
+2025-07-18 09:29:40 [restartedMain] DEBUG c.m.s.MovieBookingSystemApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-07-18 09:29:40 [restartedMain] INFO  c.m.s.MovieBookingSystemApplication - The following 1 profile is active: "dev"
+2025-07-18 09:29:40 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-07-18 09:29:40 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-07-18 09:29:41 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-18 09:29:42 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 116 ms. Found 5 JPA repository interfaces.
+2025-07-18 09:29:43 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-07-18 09:29:43 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-18 09:29:43 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-18 09:29:43 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-18 09:29:43 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2786 ms
+2025-07-18 09:29:43 [restartedMain] DEBUG o.s.w.s.r.ResourceUrlEncodingFilter - Filter 'resourceUrlEncodingFilter' configured for use
+2025-07-18 09:29:43 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-18 09:29:43 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-07-18 09:29:43 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-18 09:29:44 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-18 09:29:44 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-07-18 09:29:44 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@552885e
+2025-07-18 09:29:44 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-07-18 09:29:44 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-18 09:29:46 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-18 09:29:46 [restartedMain] DEBUG org.hibernate.SQL - 
+    create table bookings (
+        id bigint not null auto_increment,
+        bookingReference varchar(255) not null,
+        bookingTime datetime(6) not null,
+        numberOfTickets integer not null,
+        status enum ('CONFIRMED','CANCELLED','COMPLETED'),
+        totalPrice float(53) not null,
+        showtime_id bigint not null,
+        user_id bigint not null,
+        primary key (id)
+    ) engine=InnoDB
+2025-07-18 09:29:46 [restartedMain] DEBUG org.hibernate.SQL - 
+    create table movies (
+        id bigint not null auto_increment,
+        ageRating varchar(255),
+        backdropUrl varchar(255),
+        cast varchar(255),
+        country varchar(255),
+        description varchar(2000),
+        director varchar(255),
+        durationMinutes integer,
+        genre varchar(255),
+        isActive bit,
+        isFeatured bit,
+        language varchar(255),
+        posterUrl varchar(255),
+        rating float(53),
+        releaseDate date,
+        title varchar(255) not null,
+        trailerUrl varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+2025-07-18 09:29:46 [restartedMain] DEBUG org.hibernate.SQL - 
+    create table showtimes (
+        id bigint not null auto_increment,
+        availableSeats integer,
+        showTime datetime(6) not null,
+        ticketPrice float(53) not null,
+        movie_id bigint not null,
+        theater_id bigint not null,
+        primary key (id)
+    ) engine=InnoDB
+2025-07-18 09:29:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    create table theaters (
+        id bigint not null auto_increment,
+        address varchar(255),
+        city varchar(255),
+        name varchar(255) not null,
+        phoneNumber varchar(255),
+        totalSeats integer,
+        primary key (id)
+    ) engine=InnoDB
+2025-07-18 09:29:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    create table users (
+        id bigint not null auto_increment,
+        email varchar(255) not null,
+        fullName varchar(255),
+        isEnabled bit,
+        password varchar(255) not null,
+        phoneNumber varchar(255),
+        role enum ('USER','ADMIN'),
+        username varchar(255) not null,
+        primary key (id)
+    ) engine=InnoDB
+2025-07-18 09:29:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table bookings 
+       drop index UK_elhhjhpdxx45ws8jdgk7jvoxv
+2025-07-18 09:29:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table bookings 
+       add constraint UK_elhhjhpdxx45ws8jdgk7jvoxv unique (bookingReference)
+2025-07-18 09:29:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table users 
+       drop index UK_r43af9ap4edm43mmtq01oddj6
+2025-07-18 09:29:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table users 
+       add constraint UK_r43af9ap4edm43mmtq01oddj6 unique (username)
+2025-07-18 09:29:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table bookings 
+       add constraint FKc7q4u7vleq90vlvy8c7lmwtyl 
+       foreign key (showtime_id) 
+       references showtimes (id)
+2025-07-18 09:29:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table bookings 
+       add constraint FKeyog2oic85xg7hsu2je2lx3s6 
+       foreign key (user_id) 
+       references users (id)
+2025-07-18 09:29:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table showtimes 
+       add constraint FKeltpyuei1d5g3n6ikpsjwwil6 
+       foreign key (movie_id) 
+       references movies (id)
+2025-07-18 09:29:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table showtimes 
+       add constraint FKlbd5v4ium9mjbwh7l8nbjqjhw 
+       foreign key (theater_id) 
+       references theaters (id)
+2025-07-18 09:29:47 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-18 09:29:48 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-07-18 09:29:50 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-18 09:29:50 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Ambiguous mapping. Cannot map 'adminMovieController' method 
+com.moviebooking.system.controller.admin.AdminMovieController#listMovies(Model)
+to {GET [/admin/movies]}: There is already 'adminController' bean method
+com.moviebooking.system.controller.AdminController#manageMovies(Model) mapped.
+2025-07-18 09:29:50 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-18 09:29:50 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-07-18 09:29:50 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-07-18 09:29:50 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2025-07-18 09:29:50 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-07-18 09:29:50 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Ambiguous mapping. Cannot map 'adminMovieController' method 
+com.moviebooking.system.controller.admin.AdminMovieController#listMovies(Model)
+to {GET [/admin/movies]}: There is already 'adminController' bean method
+com.moviebooking.system.controller.AdminController#manageMovies(Model) mapped.
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1775)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:601)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:946)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331)
+	at com.moviebooking.system.MovieBookingSystemApplication.main(MovieBookingSystemApplication.java:17)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'adminMovieController' method 
+com.moviebooking.system.controller.admin.AdminMovieController#listMovies(Model)
+to {GET [/admin/movies]}: There is already 'adminController' bean method
+com.moviebooking.system.controller.AdminController#manageMovies(Model) mapped.
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.validateMethodMapping(AbstractHandlerMethodMapping.java:667)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:633)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.registerHandlerMethod(AbstractHandlerMethodMapping.java:331)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.registerHandlerMethod(RequestMappingHandlerMapping.java:486)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.registerHandlerMethod(RequestMappingHandlerMapping.java:79)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.lambda$detectHandlerMethods$2(AbstractHandlerMethodMapping.java:298)
+	at java.base/java.util.LinkedHashMap.forEach(LinkedHashMap.java:987)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.detectHandlerMethods(AbstractHandlerMethodMapping.java:296)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.processCandidateBean(AbstractHandlerMethodMapping.java:265)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.initHandlerMethods(AbstractHandlerMethodMapping.java:224)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.afterPropertiesSet(AbstractHandlerMethodMapping.java:212)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.afterPropertiesSet(RequestMappingHandlerMapping.java:233)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1771)
+	... 19 common frames omitted
+2025-07-18 09:34:36 [restartedMain] INFO  c.m.s.MovieBookingSystemApplication - Starting MovieBookingSystemApplication using Java 23.0.1 with PID 13652 (C:\Users\duyng\OneDrive\Tài liệu\moduel4\Movie Booking System\build\classes\java\main started by duyng in C:\Users\duyng\OneDrive\Tài liệu\moduel4\Movie Booking System)
+2025-07-18 09:34:36 [restartedMain] DEBUG c.m.s.MovieBookingSystemApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-07-18 09:34:36 [restartedMain] INFO  c.m.s.MovieBookingSystemApplication - The following 1 profile is active: "dev"
+2025-07-18 09:34:37 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-07-18 09:34:37 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-07-18 09:34:38 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-18 09:34:38 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 120 ms. Found 5 JPA repository interfaces.
+2025-07-18 09:34:39 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-07-18 09:34:39 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-18 09:34:39 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-18 09:34:39 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-18 09:34:39 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2830 ms
+2025-07-18 09:34:39 [restartedMain] DEBUG o.s.w.s.r.ResourceUrlEncodingFilter - Filter 'resourceUrlEncodingFilter' configured for use
+2025-07-18 09:34:40 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-18 09:34:40 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-07-18 09:34:40 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-18 09:34:40 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-18 09:34:40 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-07-18 09:34:41 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1308a92f
+2025-07-18 09:34:41 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-07-18 09:34:41 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-18 09:34:43 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-18 09:34:43 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-18 09:34:44 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-07-18 09:34:46 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-07-18 09:34:46 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 24 mappings in 'requestMappingHandlerMapping'
+2025-07-18 09:34:46 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /css/**, /js/**, /images/**, /uploads/**] in 'resourceHandlerMapping'
+2025-07-18 09:34:46 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-07-18 09:34:46 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-07-18 09:34:47 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2b21b505, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5df1df9c, org.springframework.security.web.context.SecurityContextHolderFilter@4798cb33, org.springframework.security.web.header.HeaderWriterFilter@2f697371, org.springframework.security.web.csrf.CsrfFilter@32b24c6e, org.springframework.security.web.authentication.logout.LogoutFilter@599d9fab, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1e06d76c, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@2b75b6f2, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@53f2f564, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@296be9b4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2205b611, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@75a56c43, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4c79c781, org.springframework.security.web.access.ExceptionTranslationFilter@192f352d, org.springframework.security.web.access.intercept.AuthorizationFilter@b722598]
+2025-07-18 09:34:47 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-07-18 09:34:47 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2025-07-18 09:34:47 [restartedMain] INFO  c.m.s.MovieBookingSystemApplication - Started MovieBookingSystemApplication in 11.271 seconds (process running for 12.161)
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        m1_0.id,
+        m1_0.ageRating,
+        m1_0.backdropUrl,
+        m1_0.cast,
+        m1_0.country,
+        m1_0.description,
+        m1_0.director,
+        m1_0.durationMinutes,
+        m1_0.genre,
+        m1_0.isActive,
+        m1_0.isFeatured,
+        m1_0.language,
+        m1_0.posterUrl,
+        m1_0.rating,
+        m1_0.releaseDate,
+        m1_0.title,
+        m1_0.trailerUrl 
+    from
+        movies m1_0 
+    order by
+        m1_0.releaseDate desc
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        movies
+        (ageRating, backdropUrl, cast, country, description, director, durationMinutes, genre, isActive, isFeatured, language, posterUrl, rating, releaseDate, title, trailerUrl) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        movies
+        (ageRating, backdropUrl, cast, country, description, director, durationMinutes, genre, isActive, isFeatured, language, posterUrl, rating, releaseDate, title, trailerUrl) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        movies
+        (ageRating, backdropUrl, cast, country, description, director, durationMinutes, genre, isActive, isFeatured, language, posterUrl, rating, releaseDate, title, trailerUrl) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        movies
+        (ageRating, backdropUrl, cast, country, description, director, durationMinutes, genre, isActive, isFeatured, language, posterUrl, rating, releaseDate, title, trailerUrl) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        movies
+        (ageRating, backdropUrl, cast, country, description, director, durationMinutes, genre, isActive, isFeatured, language, posterUrl, rating, releaseDate, title, trailerUrl) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        movies
+        (ageRating, backdropUrl, cast, country, description, director, durationMinutes, genre, isActive, isFeatured, language, posterUrl, rating, releaseDate, title, trailerUrl) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        t1_0.id,
+        t1_0.address,
+        t1_0.city,
+        t1_0.name,
+        t1_0.phoneNumber,
+        t1_0.totalSeats 
+    from
+        theaters t1_0 
+    order by
+        t1_0.name
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        theaters
+        (address, city, name, phoneNumber, totalSeats) 
+    values
+        (?, ?, ?, ?, ?)
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        theaters
+        (address, city, name, phoneNumber, totalSeats) 
+    values
+        (?, ?, ?, ?, ?)
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        theaters
+        (address, city, name, phoneNumber, totalSeats) 
+    values
+        (?, ?, ?, ?, ?)
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        theaters
+        (address, city, name, phoneNumber, totalSeats) 
+    values
+        (?, ?, ?, ?, ?)
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        s1_0.id,
+        s1_0.availableSeats,
+        s1_0.movie_id,
+        s1_0.showTime,
+        s1_0.theater_id,
+        s1_0.ticketPrice 
+    from
+        showtimes s1_0 
+    order by
+        s1_0.showTime
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        m1_0.id,
+        m1_0.ageRating,
+        m1_0.backdropUrl,
+        m1_0.cast,
+        m1_0.country,
+        m1_0.description,
+        m1_0.director,
+        m1_0.durationMinutes,
+        m1_0.genre,
+        m1_0.isActive,
+        m1_0.isFeatured,
+        m1_0.language,
+        m1_0.posterUrl,
+        m1_0.rating,
+        m1_0.releaseDate,
+        m1_0.title,
+        m1_0.trailerUrl 
+    from
+        movies m1_0 
+    order by
+        m1_0.releaseDate desc
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.email,
+        u1_0.fullName,
+        u1_0.isEnabled,
+        u1_0.password,
+        u1_0.phoneNumber,
+        u1_0.role,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.username=? 
+    limit
+        ?
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    limit
+        ?
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        users
+        (email, fullName, isEnabled, password, phoneNumber, role, username) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.email,
+        u1_0.fullName,
+        u1_0.isEnabled,
+        u1_0.password,
+        u1_0.phoneNumber,
+        u1_0.role,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.username=? 
+    limit
+        ?
+2025-07-18 09:34:47 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    limit
+        ?
+2025-07-18 09:34:48 [restartedMain] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        users
+        (email, fullName, isEnabled, password, phoneNumber, role, username) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2025-07-18 09:34:48 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.email,
+        u1_0.fullName,
+        u1_0.isEnabled,
+        u1_0.password,
+        u1_0.phoneNumber,
+        u1_0.role,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-07-18 09:34:48 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.username=? 
+    limit
+        ?
+2025-07-18 09:34:48 [restartedMain] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    limit
+        ?
+2025-07-18 09:34:48 [restartedMain] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        users
+        (email, fullName, isEnabled, password, phoneNumber, role, username) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2025-07-18 09:35:09 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-18 09:35:09 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-07-18 09:35:09 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-07-18 09:35:09 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-07-18 09:35:09 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-07-18 09:35:09 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@751890a4
+2025-07-18 09:35:09 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@7cdb79f7
+2025-07-18 09:35:09 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-07-18 09:35:09 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2025-07-18 09:35:56 [http-nio-8080-exec-1] WARN  SECURITY - Login failed for user: use - Bad credentials
+2025-07-18 10:43:59 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=47s330ms259µs800ns).
+2025-07-18 14:20:35 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3h36m47s767ms492µs700ns).

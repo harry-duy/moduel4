@@ -1,34 +1,232 @@
 server:
   port: 8080
+  servlet:
+    context-path: /
+  compression:
+    enabled: true
+    min-response-size: 1024
+  http2:
+    enabled: true
 
 spring:
+  # Database Configuration
   datasource:
-    url: jdbc:mysql://localhost:3306/movie_booking_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/movie_booking_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: 159357bapD
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-test-query: SELECT 1
 
+  # JPA/Hibernate Configuration
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+        use_sql_comments: false
+    open-in-view: false
 
-  mvc:
-    view:
-      prefix: /WEB-INF/views/
-      suffix: .jsp
+  # Thymeleaf Configuration
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    cache: false # Set to true in production
+    check-template: true
+    check-template-location: true
+    servlet:
+      content-type: text/html
 
+  # Static Resources Configuration
   web:
     resources:
       static-locations: classpath:/static/
+      cache:
+        cachecontrol:
+          max-age: 3600
+          cache-public: true
+      chain:
+        strategy:
+          content:
+            enabled: true
+            paths: /css/**,/js/**,/images/**
+        cache: true
 
+  # File Upload Configuration
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+      location: ${java.io.tmpdir}
+      resolve-lazily: false
+
+  # Security Configuration
+  security:
+    user:
+      name: admin
+      password: admin123
+      roles: ADMIN
+
+  # Session Configuration
+  session:
+    store-type: none
+    timeout: 30m
+
+  # Profile Configuration
+  profiles:
+    active: dev
+
+# Application Specific Configuration
+app:
+  name: CinemaMax
+  version: 1.0.0
+  description: Movie Booking System
+
+  # File Upload Settings
+  upload:
+    dir: ${user.home}/cinemamax/uploads
+    max-size: 50MB
+    allowed-types: jpg,jpeg,png,gif,webp
+
+  # Movie Settings
+  movie:
+    poster-size: 300x450
+    backdrop-size: 1280x720
+    max-rating: 10.0
+    min-rating: 0.0
+
+  # Booking Settings
+  booking:
+    max-tickets-per-booking: 10
+    cancellation-hours: 2
+    confirmation-timeout: 15
+
+  # Theater Settings
+  theater:
+    default-seats: 200
+    max-seats: 500
+
+  # Security Settings
+  security:
+    jwt:
+      secret: cinemamax-secret-key-2024
+      expiration: 86400000 # 24 hours
+    password:
+      min-length: 6
+      require-uppercase: false
+      require-numbers: false
+      require-special: false
+
+# Logging Configuration
 logging:
   level:
     com.moviebooking: INFO
     org.springframework.web: INFO
     org.springframework.security: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     root: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/cinemamax.log
+    max-size: 10MB
+    max-history: 30
+
+# Management and Monitoring
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# Info for Actuator
+info:
+  app:
+    name: ${app.name}
+    version: ${app.version}
+    description: ${app.description}
+
+---
+# Development Profile
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/movie_booking_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: 159357bapD
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  thymeleaf:
+    cache: false
+
+logging:
+  level:
+    com.moviebooking: DEBUG
+    org.springframework.web: DEBUG
+
+---
+# Production Profile
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/movie_booking_db?useSSL=true&serverTimezone=UTC
+    username: ${DB_USERNAME:moviebooking}
+    password: ${DB_PASSWORD:your_production_password}
+    hikari:
+      maximum-pool-size: 30
+
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+
+  thymeleaf:
+    cache: true
+
+  web:
+    resources:
+      cache:
+        cachecontrol:
+          max-age: 31536000 # 1 year
+
+server:
+  port: ${PORT:8080}
+
+logging:
+  level:
+    com.moviebooking: INFO
+    root: WARN
+  file:
+    name: /var/log/cinemamax/application.log

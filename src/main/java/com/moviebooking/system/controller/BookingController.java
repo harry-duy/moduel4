@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +34,7 @@ public class BookingController {
         Optional<Showtime> showtime = showtimeService.getShowtimeById(showtimeId);
         if (showtime.isPresent()) {
             model.addAttribute("showtime", showtime.get());
+            model.addAttribute("title", "Book Tickets - CinemaMax");
             return "booking-form";
         }
         return "redirect:/movies";
@@ -41,23 +43,34 @@ public class BookingController {
     @PostMapping("/create")
     public String processBooking(@RequestParam Long showtimeId,
                                  @RequestParam Integer numberOfTickets,
-                                 Model model) {
+                                 RedirectAttributes redirectAttributes) {
         try {
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
             Optional<User> user = userService.getUserByUsername(username);
             Optional<Showtime> showtime = showtimeService.getShowtimeById(showtimeId);
 
             if (user.isPresent() && showtime.isPresent()) {
+                if (numberOfTickets <= 0 || numberOfTickets > 10) {
+                    redirectAttributes.addFlashAttribute("error",
+                            "Invalid number of tickets. Please select between 1-10 tickets.");
+                    return "redirect:/movie/" + showtime.get().getMovie().getId();
+                }
+
+                if (numberOfTickets > showtime.get().getAvailableSeats()) {
+                    redirectAttributes.addFlashAttribute("error",
+                            "Not enough seats available. Only " + showtime.get().getAvailableSeats() + " seats left.");
+                    return "redirect:/movie/" + showtime.get().getMovie().getId();
+                }
+
                 Booking booking = bookingService.createBooking(user.get(), showtime.get(), numberOfTickets);
+                redirectAttributes.addFlashAttribute("success",
+                        "Booking confirmed! Your reference: " + booking.getBookingReference());
                 return "redirect:/booking/confirmation/" + booking.getId();
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Booking failed. Please try again.");
             }
         } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            Optional<Showtime> showtime = showtimeService.getShowtimeById(showtimeId);
-            if (showtime.isPresent()) {
-                model.addAttribute("showtime", showtime.get());
-            }
-            return "booking-form";
+            redirectAttributes.addFlashAttribute("error", "Booking failed: " + e.getMessage());
         }
 
         return "redirect:/movies";
@@ -67,10 +80,15 @@ public class BookingController {
     public String bookingConfirmation(@PathVariable Long bookingId, Model model) {
         Optional<Booking> booking = bookingService.getBookingById(bookingId);
         if (booking.isPresent()) {
-            model.addAttribute("booking", booking.get());
-            return "booking-confirmation";
+            // Verify the booking belongs to the current user
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            if (booking.get().getUser().getUsername().equals(username)) {
+                model.addAttribute("booking", booking.get());
+                model.addAttribute("title", "Booking Confirmation - CinemaMax");
+                return "booking-confirmation";
+            }
         }
-        return "redirect:/movies";
+        return "redirect:/booking/my-bookings";
     }
 
     @GetMapping("/my-bookings")
@@ -80,14 +98,29 @@ public class BookingController {
         if (user.isPresent()) {
             List<Booking> bookings = bookingService.getBookingsByUser(user.get().getId());
             model.addAttribute("bookings", bookings);
+            model.addAttribute("title", "My Bookings - CinemaMax");
             return "my-bookings";
         }
         return "redirect:/login";
     }
 
     @PostMapping("/cancel/{bookingId}")
-    public String cancelBooking(@PathVariable Long bookingId) {
-        bookingService.cancelBooking(bookingId);
+    public String cancelBooking(@PathVariable Long bookingId, RedirectAttributes redirectAttributes) {
+        try {
+            // Verify booking belongs to current user
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            Optional<Booking> bookingOpt = bookingService.getBookingById(bookingId);
+
+            if (bookingOpt.isPresent() &&
+                    bookingOpt.get().getUser().getUsername().equals(username)) {
+                bookingService.cancelBooking(bookingId);
+                redirectAttributes.addFlashAttribute("success", "Booking cancelled successfully!");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Booking not found or access denied.");
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Failed to cancel booking: " + e.getMessage());
+        }
         return "redirect:/booking/my-bookings";
     }
 }

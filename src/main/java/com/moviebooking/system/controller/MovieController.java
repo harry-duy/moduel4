@@ -2,6 +2,7 @@ package com.moviebooking.system.controller;
 
 import com.moviebooking.system.entity.Movie;
 import com.moviebooking.system.entity.Showtime;
+import com.moviebooking.system.entity.Theater;
 import com.moviebooking.system.service.MovieService;
 import com.moviebooking.system.service.ShowtimeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/movie")
@@ -24,13 +27,22 @@ public class MovieController {
 
     @GetMapping("/{id}")
     public String movieDetail(@PathVariable Long id, Model model) {
-        Optional<Movie> movie = movieService.getMovieById(id);
-        if (movie.isPresent()) {
+        Optional<Movie> movieOpt = movieService.getMovieById(id);
+        if (movieOpt.isPresent()) {
+            Movie movie = movieOpt.get();
             List<Showtime> showtimes = showtimeService.getShowtimesByMovie(id);
-            model.addAttribute("movie", movie.get());
+
+            // Group showtimes by theater for better display
+            Map<Theater, List<Showtime>> showtimesByTheater = showtimes.stream()
+                    .collect(Collectors.groupingBy(Showtime::getTheater));
+
+            model.addAttribute("movie", movie);
             model.addAttribute("showtimes", showtimes);
+            model.addAttribute("showtimesByTheater", showtimesByTheater);
+            model.addAttribute("title", movie.getTitle() + " - CinemaMax");
             return "movie-detail";
         }
+        model.addAttribute("error", "Movie not found");
         return "redirect:/movies";
     }
 
@@ -39,6 +51,7 @@ public class MovieController {
         List<Movie> movies = movieService.getMoviesByGenre(genre);
         model.addAttribute("movies", movies);
         model.addAttribute("genre", genre);
+        model.addAttribute("title", genre + " Movies - CinemaMax");
         return "movies";
     }
 }

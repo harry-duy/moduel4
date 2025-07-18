@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - CinemaMax</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #e50914;
+            --primary-dark: #b8070f;
+            --secondary-color: #221f1f;
+            --accent-color: #f5c518;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --bg-dark: #141414;
+            --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--gradient-bg);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .register-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .register-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            pointer-events: none;
+        }
+
+        .brand-logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .brand-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(245, 197, 24, 0.5);
+        }
+
+        .brand-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        .register-title {
+            text-align: center;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-label {
+            color: white;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .form-control-custom {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            color: white;
+            padding: 1rem 1rem 1rem 3rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .form-control-custom:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.3rem rgba(245, 197, 24, 0.25);
+            color: white;
+            outline: none;
+        }
+
+        .form-control-custom::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.1rem;
+            z-index: 2;
+        }
+
+        .btn-register {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-register:hover {
+            background: linear-gradient(45deg, #218838, #1e7e34);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(40, 167, 69, 0.4);
+            color: white;
+        }
+
+        .btn-register:focus {
+            box-shadow: 0 0 0 0.3rem rgba(40, 167, 69, 0.25);
+        }
+
+        .alert-custom {
+            border: none;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 1.5rem;
+        }
+
+        .alert-danger-custom {
+            background: rgba(220, 53, 69, 0.2);
+            border: 1px solid rgba(220, 53, 69, 0.5);
+            color: #dc3545;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .divider span {
+            background: var(--gradient-bg);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 0 1rem;
+            font-size: 0.9rem;
+        }
+
+        .links-section {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .link-custom {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 0 0.5rem;
+        }
+
+        .link-custom:hover {
+            color: #e6b800;
+            text-decoration: underline;
+        }
+
+        .password-requirements {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .password-requirements h6 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .requirement {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .requirement i {
+            margin-right: 0.5rem;
+            width: 16px;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(245, 197, 24, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 70%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            top: 50%;
+            left: 80%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .field-validation {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
+        }
+
+        .validation-icon {
+            display: none;
+            font-size: 1.1rem;
+        }
+
+        .validation-icon.valid {
+            color: #28a745;
+            display: block;
+        }
+
+        .validation-icon.invalid {
+            color: #dc3545;
+            display: block;
+        }
+
+        @media (max-width: 576px) {
+            .register-container {
+                padding: 2rem;
+                margin: 1rem;
+            }
+
+            .brand-title {
+                font-size: 2rem;
+            }
+
+            .register-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Floating Background Shapes -->
+<div class="floating-shapes">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+</div>
+
+<div class="register-container">
+    <!-- Brand Logo -->
+    <div class="brand-logo">
+        <h1 class="brand-title">
+            <i class="fas fa-film me-2"></i>CinemaMax
+        </h1>
+        <p class="brand-subtitle">Join the Movie Experience</p>
+    </div>
+
+    <h2 class="register-title">Create Account</h2>
+
+    <!-- Alert Messages -->
+    <div th:if="${error}" class="alert alert-danger-custom alert-dismissible fade show">
+        <i class="fas fa-exclamation-circle me-2"></i>
+        <span th:text="${error}">Error message</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <!-- Registration Form -->
+    <form method="post" th:action="@{/auth/register}" th:object="${user}" novalidate>
+        <div class="form-group">
+            <label for="username" class="form-label">Username</label>
+            <div class="position-relative">
+                <i class="fas fa-user input-icon"></i>
+                <input type="text"
+                       id="username"
+                       name="username"
+                       th:field="*{username}"
+                       class="form-control-custom"
+                       placeholder="Choose a username"
+                       required
+                       minlength="3"
+                       autocomplete="username">
+                <div class="field-validation">
+                    <i class="fas fa-check validation-icon valid" id="username-valid"></i>
+                    <i class="fas fa-times validation-icon invalid" id="username-invalid"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email" class="form-label">Email Address</label>
+            <div class="position-relative">
+                <i class="fas fa-envelope input-icon"></i>
+                <input type="email"
+                       id="email"
+                       name="email"
+                       th:field="*{email}"
+                       class="form-control-custom"
+                       placeholder="Enter your email"
+                       required
+                       autocomplete="email">
+                <div class="field-validation">
+                    <i class="fas fa-check validation-icon valid" id="email-valid"></i>
+                    <i class="fas fa-times validation-icon invalid" id="email-invalid"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="fullName" class="form-label">Full Name</label>
+            <div class="position-relative">
+                <i class="fas fa-id-card input-icon"></i>
+                <input type="text"
+                       id="fullName"
+                       name="fullName"
+                       th:field="*{fullName}"
+                       class="form-control-custom"
+                       placeholder="Enter your full name"
+                       required
+                       autocomplete="name">
+                <div class="field-validation">
+                    <i class="fas fa-check validation-icon valid" id="fullName-valid"></i>
+                    <i class="fas fa-times validation-icon invalid" id="fullName-invalid"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="phoneNumber" class="form-label">Phone Number <span class="text-muted">(Optional)</span></label>
+            <div class="position-relative">
+                <i class="fas fa-phone input-icon"></i>
+                <input type="tel"
+                       id="phoneNumber"
+                       name="phoneNumber"
+                       th:field="*{phoneNumber}"
+                       class="form-control-custom"
+                       placeholder="Enter your phone number"
+                       autocomplete="tel">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <div class="position-relative">
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password"
+                       id="password"
+                       name="password"
+                       th:field="*{password}"
+                       class="form-control-custom"
+                       placeholder="Create a strong password"
+                       required
+                       minlength="6"
+                       autocomplete="new-password">
+                <div class="field-validation">
+                    <i class="fas fa-check validation-icon valid" id="password-valid"></i>
+                    <i class="fas fa-times validation-icon invalid" id="password-invalid"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <div class="position-relative">
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password"
+                       id="confirmPassword"
+                       name="confirmPassword"
+                       class="form-control-custom"
+                       placeholder="Confirm your password"
+                       required
+                       autocomplete="new-password">
+                <div class="field-validation">
+                    <i class="fas fa-check validation-icon valid" id="confirmPassword-valid"></i>
+                    <i class="fas fa-times validation-icon invalid" id="confirmPassword-invalid"></i>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-register" id="registerBtn">
+            <i class="fas fa-user-plus me-2"></i>Create Account
+        </button>
+    </form>
+
+    <!-- Password Requirements -->
+    <div class="password-requirements">
+        <h6><i class="fas fa-shield-alt me-2"></i>Password Requirements</h6>
+        <div class="requirement">
+            <i class="fas fa-check text-muted"></i>
+            <span>At least 6 characters long</span>
+        </div>
+        <div class="requirement">
+            <i class="fas fa-check text-muted"></i>
+            <span>Mix of letters and numbers recommended</span>
+        </div>
+        <div class="requirement">
+            <i class="fas fa-check text-muted"></i>
+            <span>Special characters for extra security</span>
+        </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider">
+        <span>OR</span>
+    </div>
+
+    <!-- Links -->
+    <div class="links-section">
+        <a href="/login" th:href="@{/login}" class="link-custom">
+            <i class="fas fa-sign-in-alt me-1"></i>Already have an account? Login
+        </a>
+        <br><br>
+        <a href="/" th:href="@{/}" class="link-custom">
+            <i class="fas fa-home me-1"></i>Back to Home
+        </a>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Auto-hide alerts after 5 seconds
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => {
+            setTimeout(() => {
+                const closeBtn = alert.querySelector('.btn-close');
+                if (closeBtn) {
+                    closeBtn.click();
+                }
+            }, 5000);
+        });
+
+        // Form validation
+        const form = document.querySelector('form');
+        const username = document.getElementById('username');
+        const email = document.getElementById('email');
+        const fullName = document.getElementById('fullName');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const registerBtn = document.getElementById('registerBtn');
+
+        // Validation functions
+        function validateUsername() {
+            const value = username.value.trim();
+            const isValid = value.length >= 3;
+            updateValidationIcon('username', isValid);
+            return isValid;
+        }
+
+        function validateEmail() {
+            const value = email.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const isValid = emailRegex.test(value);
+            updateValidationIcon('email', isValid);
+            return isValid;
+        }
+
+        function validateFullName() {
+            const value = fullName.value.trim();
+            const isValid = value.length >= 2;
+            updateValidationIcon('fullName', isValid);
+            return isValid;
+        }
+
+        function validatePassword() {
+            const value = password.value;
+            const isValid = value.length >= 6;
+            updateValidationIcon('password', isValid);
+            return isValid;
+        }
+
+        function validateConfirmPassword() {
+            const value = confirmPassword.value;
+            const isValid = value === password.value && value.length > 0;
+            updateValidationIcon('confirmPassword', isValid);
+            return isValid;
+        }
+
+        function updateValidationIcon(fieldName, isValid) {
+            const validIcon = document.getElementById(fieldName + '-valid');
+            const invalidIcon = document.getElementById(fieldName + '-invalid');
+
+            if (isValid) {
+                validIcon.style.display = 'block';
+                invalidIcon.style.display = 'none';
+            } else {
+                validIcon.style.display = 'none';
+                invalidIcon.style.display = 'block';
+            }
+        }
+
+        function updateRegisterButton() {
+            const isFormValid = validateUsername() && validateEmail() &&
+                validateFullName() && validatePassword() &&
+                validateConfirmPassword();
+
+            registerBtn.disabled = !isFormValid;
+            registerBtn.style.opacity = isFormValid ? '1' : '0.6';
+        }
+
+        // Add event listeners
+        username.addEventListener('input', () => {
+            validateUsername();
+            updateRegisterButton();
+        });
+
+        email.addEventListener('input', () => {
+            validateEmail();
+            updateRegisterButton();
+        });
+
+        fullName.addEventListener('input', () => {
+            validateFullName();
+            updateRegisterButton();
+        });
+
+        password.addEventListener('input', () => {
+            validatePassword();
+            if (confirmPassword.value) {
+                validateConfirmPassword();
+            }
+            updateRegisterButton();
+        });
+
+        confirmPassword.addEventListener('input', () => {
+            validateConfirmPassword();
+            updateRegisterButton();
+        });
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            // Final validation
+            if (!validateUsername() || !validateEmail() || !validateFullName() ||
+                !validatePassword() || !validateConfirmPassword()) {
+                e.preventDefault();
+                alert('Please fill in all required fields correctly.');
+                return;
+            }
+
+            // Add loading state
+            const originalText = registerBtn.innerHTML;
+            registerBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Creating Account...';
+            registerBtn.disabled = true;
+
+            // Re-enable after 5 seconds (fallback)
+            setTimeout(() => {
+                registerBtn.innerHTML = originalText;
+                registerBtn.disabled = false;
+            }, 5000);
+        });
+
+        // Initial button state
+        updateRegisterButton();
+
+        // Focus first input
+        username.focus();
+    });
+</script>
+</body>
+</html>

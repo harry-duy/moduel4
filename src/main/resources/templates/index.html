@@ -1,52 +1,427 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout/main :: layout(~{::title}, ~{::content}, ~{::styles}, ~{::scripts})}">
 <head>
-    <title>Movie Booking System</title>
-    <meta charset="UTF-8">
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; }
-        .header { background-color: #007bff; color: white; padding: 20px; text-align: center; margin-bottom: 20px; }
-        .nav { text-align: center; margin: 20px 0; }
-        .nav a { margin: 0 10px; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; }
-        .nav a:hover { background-color: #0056b3; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .movies { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .movie { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .movie h3 { color: #007bff; margin-top: 0; }
-        .error { color: red; background-color: #ffebee; padding: 10px; border-radius: 4px; margin: 10px 0; }
-    </style>
+    <title>CinemaMax - Your Premier Movie Experience</title>
+
+    <th:block th:fragment="styles">
+        <style>
+            .hero-banner {
+                height: 600px;
+                background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)),
+                url('https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg');
+                background-size: cover;
+                background-position: center;
+                display: flex;
+                align-items: center;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .hero-content {
+                z-index: 2;
+                max-width: 600px;
+            }
+
+            .hero-title {
+                font-size: 3.5rem;
+                font-weight: 700;
+                margin-bottom: 1rem;
+                background: linear-gradient(45deg, #f5c518, #e50914);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .hero-subtitle {
+                font-size: 1.3rem;
+                margin-bottom: 2rem;
+                color: rgba(255, 255, 255, 0.9);
+            }
+
+            .featured-movies {
+                margin: 4rem 0;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+                font-weight: 600;
+                margin-bottom: 3rem;
+                text-align: center;
+                color: var(--text-light);
+            }
+
+            .movie-carousel {
+                position: relative;
+            }
+
+            .movie-slide {
+                transition: all 0.3s ease;
+            }
+
+            .movie-card-home {
+                position: relative;
+                border-radius: 15px;
+                overflow: hidden;
+                height: 450px;
+                background: var(--secondary-color);
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+
+            .movie-card-home:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            }
+
+            .movie-poster-home {
+                width: 100%;
+                height: 300px;
+                object-fit: cover;
+                transition: all 0.3s ease;
+            }
+
+            .movie-card-home:hover .movie-poster-home {
+                transform: scale(1.05);
+            }
+
+            .movie-info-home {
+                padding: 1.5rem;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: linear-gradient(transparent, rgba(0, 0, 0, 0.95));
+                color: white;
+            }
+
+            .movie-title-home {
+                font-size: 1.2rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+                color: white;
+            }
+
+            .movie-details-home {
+                font-size: 0.9rem;
+                color: rgba(255, 255, 255, 0.8);
+                margin-bottom: 1rem;
+            }
+
+            .rating-home {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .stats-section {
+                background: var(--secondary-color);
+                padding: 4rem 0;
+                margin: 4rem 0;
+            }
+
+            .stat-card {
+                text-align: center;
+                padding: 2rem;
+            }
+
+            .stat-number {
+                font-size: 3rem;
+                font-weight: 700;
+                color: var(--accent-color);
+                margin-bottom: 0.5rem;
+            }
+
+            .stat-label {
+                font-size: 1.1rem;
+                color: rgba(255, 255, 255, 0.8);
+            }
+
+            .cta-section {
+                background: var(--gradient-bg);
+                padding: 4rem 0;
+                text-align: center;
+                margin: 4rem 0;
+            }
+
+            .cta-title {
+                font-size: 2.5rem;
+                font-weight: 600;
+                margin-bottom: 1rem;
+            }
+
+            .cta-subtitle {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+                opacity: 0.9;
+            }
+
+            @media (max-width: 768px) {
+                .hero-title {
+                    font-size: 2.5rem;
+                }
+
+                .hero-subtitle {
+                    font-size: 1.1rem;
+                }
+
+                .section-title {
+                    font-size: 2rem;
+                }
+
+                .movie-card-home {
+                    height: 400px;
+                }
+
+                .movie-poster-home {
+                    height: 250px;
+                }
+            }
+        </style>
+    </th:block>
 </head>
+
 <body>
-<div class="header">
-    <h1>🎬 Movie Booking System</h1>
-</div>
-
-<div class="nav">
-    <a href="/">Home</a>
-    <a href="/movies">Movies</a>
-    <a href="/login">Login</a>
-    <a href="/register">Register</a>
-</div>
-
-<div class="container">
-    <div th:if="${error}" class="error" th:text="${error}"></div>
-
-    <h2>Available Movies</h2>
-    <div class="movies">
-        <div th:each="movie : ${movies}" class="movie">
-            <h3 th:text="${movie.title}">Movie Title</h3>
-            <p><strong>Director:</strong> <span th:text="${movie.director}">Director</span></p>
-            <p><strong>Genre:</strong> <span th:text="${movie.genre}">Genre</span></p>
-            <p><strong>Duration:</strong> <span th:text="${movie.durationMinutes}">Duration</span> minutes</p>
-            <p><strong>Rating:</strong> <span th:text="${movie.rating}">Rating</span>/10</p>
-            <p th:text="${movie.description}">Description</p>
-            <a th:href="@{/movie/{id}(id=${movie.id})}" style="color: #007bff;">View Details</a>
+<div th:fragment="content">
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Experience Cinema Like Never Before</h1>
+                <p class="hero-subtitle">
+                    Discover the latest blockbusters, book your seats instantly, and enjoy premium movie experiences at CinemaMax theaters.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="/movies" th:href="@{/movies}" class="btn btn-primary-custom btn-lg">
+                        <i class="fas fa-film me-2"></i>Browse Movies
+                    </a>
+                    <a href="#featured" class="btn btn-secondary-custom btn-lg">
+                        <i class="fas fa-star me-2"></i>Featured Now
+                    </a>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <div th:if="${#lists.isEmpty(movies)}">
-        <p>No movies available at the moment.</p>
-    </div>
+    <!-- Featured Movies Section -->
+    <section id="featured" class="featured-movies">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-star text-warning me-3"></i>Featured Movies
+            </h2>
+
+            <div th:if="${#lists.isEmpty(movies)}" class="text-center py-5">
+                <div class="alert alert-info-custom">
+                    <i class="fas fa-info-circle me-2"></i>
+                    No movies available at the moment. Please check back later!
+                </div>
+            </div>
+
+            <div th:unless="${#lists.isEmpty(movies)}" class="row g-4">
+                <div th:each="movie : ${movies}" class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="movie-card-home"
+                         th:onclick="|window.location.href='@{/movie/{id}(id=${movie.id})}'|">
+
+                        <!-- Featured Badge -->
+                        <div th:if="${movie.isFeatured}" class="featured-badge">
+                            <i class="fas fa-star me-1"></i>Featured
+                        </div>
+
+                        <!-- Movie Poster -->
+                        <img th:src="${movie.posterUrl}"
+                             th:alt="${movie.title}"
+                             class="movie-poster-home"
+                             onerror="this.src='https://via.placeholder.com/300x450/1f1f1f/ffffff?text=No+Image'">
+
+                        <!-- Movie Info Overlay -->
+                        <div class="movie-info-home">
+                            <h3 class="movie-title-home" th:text="${movie.title}">Movie Title</h3>
+
+                            <div class="movie-details-home">
+                                <span th:text="${movie.genre}">Genre</span> •
+                                <span th:text="${movie.durationFormatted}">Duration</span>
+                            </div>
+
+                            <div class="rating-home">
+                                <span class="rating-stars" th:text="${movie.ratingStars}">★★★★☆</span>
+                                <span class="rating-number" th:text="${movie.rating}">8.5</span>
+                            </div>
+
+                            <div class="d-flex gap-2">
+                                <span class="genre-badge" th:text="${movie.genre}">Action</span>
+                                <span th:if="${movie.ageRating}"
+                                      class="badge bg-secondary"
+                                      th:text="${movie.ageRating}">PG-13</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View All Movies Button -->
+            <div class="text-center mt-5" th:unless="${#lists.isEmpty(movies)}">
+                <a href="/movies" th:href="@{/movies}" class="btn btn-primary-custom btn-lg">
+                    <i class="fas fa-film me-2"></i>View All Movies
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-number" th:text="${totalMovies ?: 0}">50+</div>
+                        <div class="stat-label">Movies Available</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-number" th:text="${totalTheaters ?: 0}">10+</div>
+                        <div class="stat-label">Theater Locations</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-number" th:text="${totalBookings ?: 0}">1000+</div>
+                        <div class="stat-label">Happy Customers</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Online Booking</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section" sec:authorize="!isAuthenticated()">
+        <div class="container">
+            <h2 class="cta-title">Ready to Book Your Next Movie?</h2>
+            <p class="cta-subtitle">
+                Join thousands of movie lovers and enjoy exclusive benefits, easy booking, and premium experiences.
+            </p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="/register" th:href="@{/register}" class="btn btn-primary-custom btn-lg">
+                    <i class="fas fa-user-plus me-2"></i>Sign Up Now
+                </a>
+                <a href="/login" th:href="@{/login}" class="btn btn-secondary-custom btn-lg">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title">Why Choose CinemaMax?</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card-custom p-4 text-center h-100">
+                        <div class="mb-3">
+                            <i class="fas fa-mobile-alt fa-3x text-warning"></i>
+                        </div>
+                        <h4 class="text-light mb-3">Easy Online Booking</h4>
+                        <p class="text-light opacity-75">
+                            Book your tickets anytime, anywhere with our user-friendly mobile-responsive platform.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-custom p-4 text-center h-100">
+                        <div class="mb-3">
+                            <i class="fas fa-couch fa-3x text-warning"></i>
+                        </div>
+                        <h4 class="text-light mb-3">Premium Comfort</h4>
+                        <p class="text-light opacity-75">
+                            Enjoy luxury reclining seats, optimal viewing angles, and climate-controlled theaters.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-custom p-4 text-center h-100">
+                        <div class="mb-3">
+                            <i class="fas fa-volume-up fa-3x text-warning"></i>
+                        </div>
+                        <h4 class="text-light mb-3">Superior Sound & Picture</h4>
+                        <p class="text-light opacity-75">
+                            Experience movies with cutting-edge Dolby Atmos sound and 4K projection technology.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
+
+<th:block th:fragment="scripts">
+    <script>
+        // Add scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe movie cards
+            document.querySelectorAll('.movie-card-home').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+
+            // Add counter animation for stats
+            function animateCounter(element, target) {
+                let current = 0;
+                const increment = target / 100;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        element.textContent = target + (target > 10 ? '+' : '');
+                        clearInterval(timer);
+                    } else {
+                        element.textContent = Math.floor(current) + (target > 10 ? '+' : '');
+                    }
+                }, 20);
+            }
+
+            // Animate stats when they come into view
+            const statsObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const number = entry.target.querySelector('.stat-number');
+                        const targetValue = parseInt(number.textContent.replace('+', ''));
+                        if (!isNaN(targetValue)) {
+                            animateCounter(number, targetValue);
+                        }
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.stat-card').forEach(card => {
+                statsObserver.observe(card);
+            });
+        });
+    </script>
+</th:block>
 </body>
 </html>
