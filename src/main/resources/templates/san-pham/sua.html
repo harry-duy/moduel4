@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Sửa sản phẩm đấu giá</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    .form-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .required-field::after {
+      content: " *";
+      color: red;
+    }
+    .form-help {
+      font-size: 0.875em;
+      color: #6c757d;
+    }
+    .error-message {
+      color: #dc3545;
+      font-size: 0.875em;
+      margin-top: 0.25rem;
+    }
+    .product-info {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      border-left: 4px solid #007bff;
+    }
+  </style>
+</head>
+<body class="bg-light">
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <!-- Header -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-edit"></i> Sửa sản phẩm</h2>
+        <a href="/san-pham/quan-ly" class="btn btn-secondary">
+          <i class="fas fa-arrow-left"></i> Quay về trang chủ
+        </a>
+      </div>
+
+      <!-- Form Container -->
+      <div class="form-container">
+        <!-- Product Info -->
+        <div class="product-info">
+          <h6><i class="fas fa-info-circle"></i> Thông tin sản phẩm hiện tại</h6>
+          <p class="mb-1"><strong>ID:</strong> <span th:text="${sanPham.id}">1</span></p>
+          <p class="mb-0"><strong>Tên:</strong> <span th:text="${sanPham.name}">iPhone 11</span></p>
+        </div>
+
+        <div class="alert alert-info">
+          <i class="fas fa-info-circle"></i>
+          <strong>Các thuộc tính có dấu * là bắt buộc!</strong>
+        </div>
+
+        <!-- Alert Messages -->
+        <div th:if="${success}" class="alert alert-success alert-dismissible fade show">
+          <i class="fas fa-check-circle"></i> <span th:text="${success}"></span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show">
+          <i class="fas fa-exclamation-circle"></i> <span th:text="${error}"></span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <!-- Form -->
+        <form th:action="@{/san-pham/sua/{id}(id=${sanPham.id})}" th:object="${sanPham}" method="post" novalidate>
+          <!-- Tên sản phẩm -->
+          <div class="mb-3">
+            <label for="name" class="form-label required-field">Tên Sản Phẩm</label>
+            <input type="text"
+                   id="name"
+                   th:field="*{name}"
+                   class="form-control"
+                   th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''"
+                   placeholder="Nhập tên sản phẩm">
+            <div class="form-help">Tên sản phẩm phải từ 5 đến 50 ký tự</div>
+            <div th:if="${#fields.hasErrors('name')}" class="error-message">
+              <span th:errors="*{name}"></span>
+            </div>
+          </div>
+
+          <!-- Giá bắt đầu -->
+          <div class="mb-3">
+            <label for="price" class="form-label required-field">Giá bắt đầu</label>
+            <div class="input-group">
+              <input type="number"
+                     id="price"
+                     th:field="*{price}"
+                     class="form-control"
+                     th:classappend="${#fields.hasErrors('price')} ? 'is-invalid' : ''"
+                     placeholder="Nhập giá bắt đầu"
+                     min="100000"
+                     step="1000">
+              <span class="input-group-text">VND</span>
+            </div>
+            <div class="form-help">Giá bắt đầu phải tối thiểu 100,000 VND</div>
+            <div th:if="${#fields.hasErrors('price')}" class="error-message">
+              <span th:errors="*{price}"></span>
+            </div>
+          </div>
+
+          <!-- Loại sản phẩm -->
+          <div class="mb-3">
+            <label for="loaiSanPham" class="form-label required-field">Loại sản phẩm</label>
+            <select id="loaiSanPham"
+                    th:field="*{loaiSanPham}"
+                    class="form-select"
+                    th:classappend="${#fields.hasErrors('loaiSanPham')} ? 'is-invalid' : ''">
+              <option value="">--Chọn loại sản phẩm--</option>
+              <option th:each="loai : ${loaiSanPhams}"
+                      th:value="${loai}"
+                      th:text="${loai.name}"
+                      th:selected="${sanPham.loaiSanPham != null and sanPham.loaiSanPham.cid == loai.cid}">
+              </option>
+            </select>
+            <div th:if="${#fields.hasErrors('loaiSanPham')}" class="error-message">
+              <span th:errors="*{loaiSanPham}"></span>
+            </div>
+          </div>
+
+          <!-- Tình trạng -->
+          <div class="mb-3">
+            <label for="status" class="form-label required-field">Tình trạng</label>
+            <select id="status"
+                    th:field="*{status}"
+                    class="form-select"
+                    th:classappend="${#fields.hasErrors('status')} ? 'is-invalid' : ''">
+              <option value="">--Chọn tình trạng--</option>
+              <option value="chờ duyệt" th:selected="${sanPham.status == 'chờ duyệt'}">Chờ duyệt</option>
+              <option value="đang đấu giá" th:selected="${sanPham.status == 'đang đấu giá'}">Đang đấu giá</option>
+              <option value="đã bán" th:selected="${sanPham.status == 'đã bán'}">Đã bán</option>
+            </select>
+            <div th:if="${#fields.hasErrors('status')}" class="error-message">
+              <span th:errors="*{status}"></span>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="/san-pham/quan-ly" class="btn btn-secondary me-md-2">
+              <i class="fas fa-times"></i> Hủy
+            </a>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save"></i> Cập nhật sản phẩm
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Focus on first input
+    document.getElementById('name').focus();
+
+    // Auto dismiss alerts after 5 seconds
+    setTimeout(() => {
+      const alerts = document.querySelectorAll('.alert.alert-dismissible');
+      alerts.forEach(alert => {
+        const bsAlert = new bootstrap.Alert(alert);
+        bsAlert.close();
+      });
+    }, 5000);
+
+    // Form validation
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+      if (!validateForm()) {
+        e.preventDefault();
+      }
+    });
+
+    // Real-time validation
+    const nameInput = document.getElementById('name');
+    const priceInput = document.getElementById('price');
+    const loaiSanPhamSelect = document.getElementById('loaiSanPham');
+    const statusSelect = document.getElementById('status');
+
+    nameInput.addEventListener('blur', validateName);
+    priceInput.addEventListener('blur', validatePrice);
+    loaiSanPhamSelect.addEventListener('change', validateLoaiSanPham);
+    statusSelect.addEventListener('change', validateStatus);
+  });
+
+  function validateForm() {
+    const isNameValid = validateName();
+    const isPriceValid = validatePrice();
+    const isLoaiSanPhamValid = validateLoaiSanPham();
+    const isStatusValid = validateStatus();
+
+    return isNameValid && isPriceValid && isLoaiSanPhamValid && isStatusValid;
+  }
+
+  function validateName() {
+    const nameInput = document.getElementById('name');
+    const value = nameInput.value.trim();
+
+    if (value.length === 0) {
+      setFieldError(nameInput, 'Tên sản phẩm không được để trống');
+      return false;
+    } else if (value.length < 5 || value.length > 50) {
+      setFieldError(nameInput, 'Tên sản phẩm phải từ 5 đến 50 ký tự');
+      return false;
+    } else {
+      setFieldSuccess(nameInput);
+      return true;
+    }
+  }
+
+  function validatePrice() {
+    const priceInput = document.getElementById('price');
+    const value = parseFloat(priceInput.value);
+
+    if (isNaN(value) || value < 100000) {
+      setFieldError(priceInput, 'Giá bắt đầu phải tối thiểu 100,000 VND');
+      return false;
+    } else {
+      setFieldSuccess(priceInput);
+      return true;
+    }
+  }
+
+  function validateLoaiSanPham() {
+    const select = document.getElementById('loaiSanPham');
+
+    if (select.value === '') {
+      setFieldError(select, 'Vui lòng chọn loại sản phẩm');
+      return false;
+    } else {
+      setFieldSuccess(select);
+      return true;
+    }
+  }
+
+  function validateStatus() {
+    const select = document.getElementById('status');
+
+    if (select.value === '') {
+      setFieldError(select, 'Vui lòng chọn tình trạng');
+      return false;
+    } else {
+      setFieldSuccess(select);
+      return true;
+    }
+  }
+
+  function setFieldError(field, message) {
+    field.classList.remove('is-valid');
+    field.classList.add('is-invalid');
+
+    // Remove existing custom error
+    const existingError = field.parentNode.querySelector('.custom-error');
+    if (existingError) {
+      existingError.remove();
+    }
+
+    // Add new error message
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'custom-error error-message';
+    errorDiv.textContent = message;
+    field.parentNode.appendChild(errorDiv);
+  }
+
+  function setFieldSuccess(field) {
+    field.classList.remove('is-invalid');
+    field.classList.add('is-valid');
+
+    // Remove existing custom error
+    const existingError = field.parentNode.querySelector('.custom-error');
+    if (existingError) {
+      existingError.remove();
+    }
+  }
+
+  // Format price input
+  document.getElementById('price').addEventListener('input', function(e) {
+    const value = e.target.value.replace(/\D/g, '');
+    if (value) {
+      e.target.value = parseInt(value).toLocaleString('vi-VN');
+    }
+  });
+
+  document.getElementById('price').addEventListener('blur', function(e) {
+    const value = e.target.value.replace(/\D/g, '');
+    e.target.value = value;
+  });
+</script>
+</body>
+</html>

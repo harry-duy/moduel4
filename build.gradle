@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.0'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.moviebooking'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+// Cấu hình main class cho Spring Boot
+springBoot {
+    mainClass = 'com.moviebooking.system.AuctionSystemApplication'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Core Spring Boot Starters
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Thymeleaf - Template Engine
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // Database
+    implementation 'com.mysql:mysql-connector-j:8.1.0'
+
+    // Development Tools
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Testing
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+// Gradle task để clean và build
+tasks.register('cleanBuild') {
+    dependsOn 'clean', 'build'
+    description 'Clean and build the project'
+}
+
+// Task để chạy ứng dụng
+tasks.register('runApp') {
+    dependsOn 'bootRun'
+    description 'Run the Spring Boot application'
+}
