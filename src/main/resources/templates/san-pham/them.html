@@ -101,17 +101,18 @@
             </div>
           </div>
 
-          <!-- Loại sản phẩm -->
+          <!-- Loại sản phẩm - FIXED -->
           <div class="mb-3">
             <label for="loaiSanPham" class="form-label required-field">Loại sản phẩm</label>
             <select id="loaiSanPham"
-                    th:field="*{loaiSanPham}"
+                    name="loaiSanPham.cid"
                     class="form-select"
                     th:classappend="${#fields.hasErrors('loaiSanPham')} ? 'is-invalid' : ''">
               <option value="">--Chọn loại sản phẩm--</option>
               <option th:each="loai : ${loaiSanPhams}"
-                      th:value="${loai}"
-                      th:text="${loai.name}">
+                      th:value="${loai.cid}"
+                      th:text="${loai.name}"
+                      th:selected="${sanPham.loaiSanPham != null and sanPham.loaiSanPham.cid == loai.cid}">
               </option>
             </select>
             <div th:if="${#fields.hasErrors('loaiSanPham')}" class="error-message">

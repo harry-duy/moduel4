@@ -1,6 +1,5 @@
 package com.moviebooking.finaltest.system.controller;
 
-
 import com.moviebooking.finaltest.system.entity.LoaiSanPham;
 import com.moviebooking.finaltest.system.entity.SanPham;
 import com.moviebooking.finaltest.system.service.SanPhamService;
@@ -92,12 +91,25 @@ public class SanPhamController {
         return "san-pham/them";
     }
 
-    // Xử lý thêm sản phẩm - Yêu cầu 3
+    // Xử lý thêm sản phẩm - FIXED
     @PostMapping("/them")
     public String themSanPham(@Valid @ModelAttribute SanPham sanPham,
                               BindingResult result,
+                              @RequestParam("loaiSanPham.cid") Long loaiSanPhamId,
                               Model model,
                               RedirectAttributes redirectAttributes) {
+
+        // Validate và set LoaiSanPham
+        if (loaiSanPhamId == null) {
+            result.rejectValue("loaiSanPham", "error.sanPham", "Vui lòng chọn loại sản phẩm");
+        } else {
+            Optional<LoaiSanPham> loaiSanPhamOpt = sanPhamService.getLoaiSanPhamById(loaiSanPhamId);
+            if (loaiSanPhamOpt.isPresent()) {
+                sanPham.setLoaiSanPham(loaiSanPhamOpt.get());
+            } else {
+                result.rejectValue("loaiSanPham", "error.sanPham", "Loại sản phẩm không tồn tại");
+            }
+        }
 
         if (result.hasErrors()) {
             model.addAttribute("loaiSanPhams", sanPhamService.getAllLoaiSanPham());
@@ -107,7 +119,7 @@ public class SanPhamController {
         try {
             sanPhamService.saveSanPham(sanPham);
             redirectAttributes.addFlashAttribute("success",
-                    "Thêm sản phẩm thành công!");
+                    "Thêm sản phẩm '" + sanPham.getName() + "' thành công!");
             return "redirect:/san-pham/quan-ly";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error",
@@ -131,13 +143,26 @@ public class SanPhamController {
         }
     }
 
-    // Xử lý sửa sản phẩm
+    // Xử lý sửa sản phẩm - FIXED
     @PostMapping("/sua/{id}")
     public String suaSanPham(@PathVariable Long id,
                              @Valid @ModelAttribute SanPham sanPham,
                              BindingResult result,
+                             @RequestParam(value = "loaiSanPham.cid", required = false) Long loaiSanPhamId,
                              Model model,
                              RedirectAttributes redirectAttributes) {
+
+        // Validate và set LoaiSanPham
+        if (loaiSanPhamId == null) {
+            result.rejectValue("loaiSanPham", "error.sanPham", "Vui lòng chọn loại sản phẩm");
+        } else {
+            Optional<LoaiSanPham> loaiSanPhamOpt = sanPhamService.getLoaiSanPhamById(loaiSanPhamId);
+            if (loaiSanPhamOpt.isPresent()) {
+                sanPham.setLoaiSanPham(loaiSanPhamOpt.get());
+            } else {
+                result.rejectValue("loaiSanPham", "error.sanPham", "Loại sản phẩm không tồn tại");
+            }
+        }
 
         if (result.hasErrors()) {
             model.addAttribute("loaiSanPhams", sanPhamService.getAllLoaiSanPham());
@@ -148,7 +173,7 @@ public class SanPhamController {
             sanPham.setId(id);
             sanPhamService.updateSanPham(sanPham);
             redirectAttributes.addFlashAttribute("success",
-                    "Cập nhật sản phẩm thành công!");
+                    "Cập nhật sản phẩm '" + sanPham.getName() + "' thành công!");
             return "redirect:/san-pham/quan-ly";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error",

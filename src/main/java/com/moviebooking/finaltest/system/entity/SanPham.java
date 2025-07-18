@@ -24,7 +24,8 @@ public class SanPham {
     @NotBlank(message = "Tình trạng không được để trống")
     private String status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    // THAY ĐỔI: LAZY -> EAGER để tránh LazyInitializationException
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_loai_sp", nullable = false)
     @NotNull(message = "Loại sản phẩm không được để trống")
     private LoaiSanPham loaiSanPham;
@@ -83,5 +84,10 @@ public class SanPham {
     // Helper method to format price
     public String getFormattedPrice() {
         return String.format("%,.0f VND", price);
+    }
+
+    // Helper method để lấy tên loại sản phẩm an toàn
+    public String getLoaiSanPhamName() {
+        return loaiSanPham != null ? loaiSanPham.getName() : "";
     }
 }

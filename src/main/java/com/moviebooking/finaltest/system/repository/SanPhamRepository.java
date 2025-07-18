@@ -1,6 +1,5 @@
 package com.moviebooking.finaltest.system.repository;
 
-
 import com.moviebooking.finaltest.system.entity.SanPham;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,17 +13,20 @@ import java.util.List;
 @Repository
 public interface SanPhamRepository extends JpaRepository<SanPham, Long> {
 
-    // Tìm kiếm theo tên sản phẩm
-    Page<SanPham> findByNameContainingIgnoreCaseOrderById(String name, Pageable pageable);
+    // Tìm kiếm theo tên sản phẩm với JOIN FETCH
+    @Query("SELECT s FROM SanPham s JOIN FETCH s.loaiSanPham WHERE LOWER(s.name) LIKE LOWER(CONCAT('%', :name, '%')) ORDER BY s.id")
+    Page<SanPham> findByNameContainingIgnoreCaseOrderById(@Param("name") String name, Pageable pageable);
 
-    // Tìm kiếm theo loại sản phẩm
-    Page<SanPham> findByLoaiSanPham_CidOrderById(Long loaiSanPhamId, Pageable pageable);
+    // Tìm kiếm theo loại sản phẩm với JOIN FETCH
+    @Query("SELECT s FROM SanPham s JOIN FETCH s.loaiSanPham WHERE s.loaiSanPham.cid = :loaiSanPhamId ORDER BY s.id")
+    Page<SanPham> findByLoaiSanPham_CidOrderById(@Param("loaiSanPhamId") Long loaiSanPhamId, Pageable pageable);
 
-    // Tìm kiếm theo giá bắt đầu
-    Page<SanPham> findByPriceGreaterThanEqualOrderById(Double price, Pageable pageable);
+    // Tìm kiếm theo giá bắt đầu với JOIN FETCH
+    @Query("SELECT s FROM SanPham s JOIN FETCH s.loaiSanPham WHERE s.price >= :price ORDER BY s.id")
+    Page<SanPham> findByPriceGreaterThanEqualOrderById(@Param("price") Double price, Pageable pageable);
 
-    // Tìm kiếm tổng hợp
-    @Query("SELECT s FROM SanPham s WHERE " +
+    // Tìm kiếm tổng hợp với JOIN FETCH
+    @Query("SELECT s FROM SanPham s JOIN FETCH s.loaiSanPham WHERE " +
             "(:name IS NULL OR LOWER(s.name) LIKE LOWER(CONCAT('%', :name, '%'))) AND " +
             "(:loaiSanPhamId IS NULL OR s.loaiSanPham.cid = :loaiSanPhamId) AND " +
             "(:price IS NULL OR s.price >= :price) " +
@@ -34,7 +36,8 @@ public interface SanPhamRepository extends JpaRepository<SanPham, Long> {
                                          @Param("price") Double price,
                                          Pageable pageable);
 
-    // Tất cả sản phẩm có phân trang
+    // Tất cả sản phẩm có phân trang với JOIN FETCH
+    @Query("SELECT s FROM SanPham s JOIN FETCH s.loaiSanPham ORDER BY s.id")
     Page<SanPham> findAllByOrderById(Pageable pageable);
 
     // Đếm số lượng sản phẩm theo loại
